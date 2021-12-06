@@ -1,0 +1,35 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.oon'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'com.google.guava', name: 'guava', version: '11.0.2'
+	implementation group: 'org.json', name: 'json', version: '20190722'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '1.2.1.RELEASE'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.3.0.RELEASE'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+	implementation 'junit:junit:4.12'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	testImplementation 'org.mockito:mockito-core:2.28.2'
+	testImplementation 'junit:junit:4.12'
+}
+
+war {
+	enabled=true
+}
