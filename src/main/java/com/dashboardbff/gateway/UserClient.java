@@ -1,6 +1,9 @@
 package com.dashboardbff.gateway;
 
+import com.dashboardbff.response.UserResponse;
+import com.dashboardbff.response.UserResponses;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -10,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
+import java.util.List;
+
 @Component
 public class UserClient {
 
@@ -23,7 +28,7 @@ public class UserClient {
         this.restTemplate = restTemplate;
     }
 
-    public String getAllUsers() throws JsonProcessingException {
+    public List<UserResponse> getAllUsers() throws JsonProcessingException {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -43,11 +48,15 @@ public class UserClient {
             ResponseEntity<String> responseEntity = restTemplate
                     .exchange(url, HttpMethod.GET, entity, String.class);
 
-            return responseEntity.getBody();
+            String responseBody = responseEntity.getBody();
+
+            List<UserResponse> userResponses = mapper.readValue(responseBody, new TypeReference<List<UserResponse>>() {});
+
+            return userResponses;
 
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
         }
-        return "";
+        return null;
     }
 }

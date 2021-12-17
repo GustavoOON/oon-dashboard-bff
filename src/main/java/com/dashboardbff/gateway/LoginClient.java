@@ -34,12 +34,8 @@ public class LoginClient {
         String body = mapper.writeValueAsString(loginRequest);
 
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
-        try {
+
             ResponseEntity<String> responseEntity = restTemplate
                     .exchange(URL, HttpMethod.POST, entity, String.class);
-
-        } catch (HttpClientErrorException e) {
-            e.printStackTrace();
-        }
     }
 }

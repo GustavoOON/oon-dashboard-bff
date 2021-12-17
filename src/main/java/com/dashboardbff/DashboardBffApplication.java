@@ -36,9 +36,6 @@ public class DashboardBffApplication {
 					.antMatchers(HttpMethod.POST, "/login").permitAll()
 					.anyRequest().authenticated();
 		}
-
-
-
 	}
 
 	@Bean
